@@ -1,0 +1,72 @@
+<div class="loader" *ngIf="loading">
+  <div class="spinner-border text-dark" role="status" >
+  </div>
+</div>
+
+<div class="mx-5 mb-5">
+  <div class="row">
+    <div class="col-3 col-sm-2 text-start">
+      <form [formGroup]="searchForm">
+        <input class="form-control input-bg search-input" formControlName="search" type="search" placeholder="Search for an item">
+      </form>
+
+    </div>
+    <div class="col-9 col-sm-10 text-end">
+      <div class="dropdown">
+        <button class="btn dropdown-toggle btn-light" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" >
+          {{category}}
+        </button>
+        <ul id="dropdownMenu" class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li *ngFor="let category of categories"><button class="dropdown-item" type="button" (click)="clickCategory(category)"> {{category}} </button></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-5 coctails-listing" >
+  <div  class="d-flex flex-row flex-wrap m-2 list" *ngIf="!loading">
+    <div class="card shadow-light m-2 bg-light" *ngFor="let coctail of allCoctails; let i = index">
+      <img  [src]="coctail.strDrinkThumb" class="card-img-top" alt="...">
+      <div class="card-body bg-light">
+        <h5 class="card-title">{{coctail.strDrink}}</h5>
+
+        <div *ngIf="category === defaultCategory" class="ingredients">
+          <div class="row" *ngFor="let ingr of getIngrdients(coctail)">
+            <div class="col-6">
+              <p class="card-text fw-bold size">{{ingr}}</p>
+            </div>
+            <div class="col-6">
+              <p class="card-text size">{{getIngrdient(ingr, coctail)}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" *ngIf="category !== defaultCategory">
+          <div class="col-6">
+            <p class="card-text fw-bold size">Category</p>
+          </div>
+          <div class="col-6">
+            <p class="card-text size">{{category}}</p>
+          </div>
+        </div>
+
+      </div>
+        <div class="card-footer text-muted bg-dark">
+          <a [routerLink]="['coctail', coctail.idDrink]" class="btn checkCoctail btn-light">Check the coctail</a>
+        </div>
+    </div>
+  </div>
+  <div class="mx-5  mt-5" *ngIf="!loading">
+    <div class="loader-bottom" *ngIf="imgLoading">
+      <div class="spinner-border text-dark" role="status" >
+      </div>
+    </div>
+  </div>
+</div>
+
+<div (click)="scrollToTop()" class="scroll-to-top bg-dark"  >
+  <button class="btn btn-light">
+    <span class="bi bi-arrow-up-square"></span>
+  </button>
+</div>

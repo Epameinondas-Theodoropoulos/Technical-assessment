@@ -3,7 +3,16 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  domain: 'https://www.thecocktaildb.com/api/json/v1/1/',
+  endpoints: {
+    coctails: {
+      search: 'search.php',
+      list: 'list.php',
+      filter: 'filter.php',
+      lookup: 'lookup.php'
+    }
+  }
 };
 
 /*

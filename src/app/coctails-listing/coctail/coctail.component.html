@@ -1,0 +1,98 @@
+<div class="mx-5 mb-5">
+  <div class="row">
+    <div class="col-12 col-md-1 text-start ">
+      <a [routerLink]="['../../']" class="btn btn-light" id="backBtn">Back</a>
+    </div>
+    <div class="col-3 text-center" *ngIf="!loading">
+      <div class="list-group">
+        <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+         {{coctail?.strDrink}}
+        </li>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="loader" *ngIf="loading">
+  <div class="spinner-border text-dark" role="status" >
+  </div>
+</div>
+
+<div class="mx-5 mb-5">
+  <div class="row" *ngIf="!loading">
+    <div class="col-12 col-md-6 text-start shadow-light" style="padding: 0;">
+      <img [src]="coctail?.strDrinkThumb" class="responsive" alt="...">
+    </div>
+    <div class="col-12 mt-5 col-md-6 mt-md-0 text-end">
+      <div class="row">
+        <div class="col-6 offset-3 text-center">
+          <div class="list-group">
+            <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+             Category
+            </li>
+            <li class="list-group-item bg-light text-dark">
+              {{coctail?.strCategory}}
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 text-center">
+          <div class="list-group">
+            <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+              Ingredients
+            </li>
+            <li class="list-group-item bg-light text-dark" *ngFor="let ingr of ingredients">
+              {{getIngrdient(ingr)}}
+            </li>
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <div class="list-group">
+            <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+              Measures
+            </li>
+            <li class="list-group-item bg-light text-dark" *ngFor="let msr of measures">
+              {{getMeasure(msr)}}
+            </li>
+          </div>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6 text-center">
+          <div class="list-group">
+            <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+              Glass
+            </li>
+            <li class="list-group-item bg-light text-dark" >
+              {{coctail?.strGlass}}
+            </li>
+          </div>
+        </div>
+        <div class="col-6 text-center">
+          <div class="list-group">
+            <li class="list-group-item list-group-item-action bg-dark text-light" aria-current="true">
+              Alcoholic
+            </li>
+            <li class="list-group-item bg-light text-dark" >
+              {{coctail?.strAlcoholic}}
+            </li>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mx-5 mb-5" *ngIf="!loading">
+  <div class="row" >
+    <div class="col-12 background bg-dark text-light">
+      <p>Instructions</p>
+    </div>
+  </div>
+  <div class="row ">
+    <div class="col-12 area bg-light">
+      <strong>{{coctail?.strInstructions}}</strong>
+    </div>
+  </div>
+</div>
