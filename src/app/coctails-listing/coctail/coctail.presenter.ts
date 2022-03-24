@@ -12,7 +12,6 @@ export class CoctailPresenter {
   coctail: CoctailModel = {
     idDrink: '0'
   };
-  parsed: any;
   ingredients: string[] = [];
   measures: string[] = [];
 
@@ -21,7 +20,7 @@ export class CoctailPresenter {
     private coctailsService: CoctailsService
     ) {}
 
-  init(route: ActivatedRoute) {
+  init(route: ActivatedRoute): void {
     this.subs.push(route.paramMap.subscribe(paramMap => {
       if (!paramMap.has("id")) {
         this.router.navigate(['coctails-listing']);
@@ -33,7 +32,7 @@ export class CoctailPresenter {
         id = paramMap.get("id");
       }
       this.subs.push(this.coctailsService.getCoctailById(id).subscribe(coctail => {
-        if(coctail && coctail.drinks[0]) {
+        if(coctail && coctail.drinks && coctail.drinks[0]) {
           this.coctail = coctail.drinks[0];
           this.ingredients = Object.keys(this.coctail).filter((keys: any) => {
             if(keys.includes('strIngredient') && this.coctail[keys as keyof CoctailModel]) {
@@ -46,8 +45,10 @@ export class CoctailPresenter {
               return keys;
             }
           });
+        } else {
+          this.router.navigate(['../../']);
         }
-        this.parsed = JSON.stringify(coctail);
+
         this.loading = false;
       }));
     }));
